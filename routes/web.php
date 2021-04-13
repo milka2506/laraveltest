@@ -27,14 +27,7 @@ Route::get('reset-password/{token}', 'Auth\ResetPasswordController@getPassword')
 Route::post('reset-password', 'Auth\ResetPasswordController@updatePassword');
 
 Route::get('home', 'Auth\LoginController@home')->name('home');
-Route::get('tasks-done', 'Auth\LoginController@done')->name('done');
-Route::get('pending-tasks', 'Auth\LoginController@pending')->name('pending');
-Route::post("/task", "TaskController@store")->name('tasks.store');
-Route::post('/complete-task/{id}', 'TaskController@update')->name('tasks.update');
-Route::post('/in-complete-task/{id}', 'TaskController@incomplete')->name('tasks.incomplete');
-
-
-Route::post('tasks/update/{id}','TaskController@taskupdate');
+Route::resource('items','ItemController');
 
 
 // Route::middleware(['auth'])->group(function() {

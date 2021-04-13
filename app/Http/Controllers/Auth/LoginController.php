@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use App\Item;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,11 +44,16 @@ class LoginController extends Controller
 
     public function home()
     {
+
+      $items = Item::latest()->paginate(5);
+  
+      return view('items.index',compact('items'))
+          ->with('i', (request()->input('page', 1) - 1) * 5);
       //dd(Auth::user());
-      $tasks = Task::where('user_id', '=', Auth::user()->id)->orderBy("iscompleted", "asc")->get();
-      return view('auth.home', [
-        'tasks' => $tasks
-    ]);
+    //   $tasks = Task::where('user_id', '=', Auth::user()->id)->orderBy("iscompleted", "asc")->get();
+    //   return view('auth.home', [
+    //     'tasks' => $tasks
+    // ]);
     }
 
     public function done()
